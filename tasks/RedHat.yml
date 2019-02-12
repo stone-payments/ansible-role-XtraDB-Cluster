@@ -19,6 +19,11 @@
     baseurl: "{{ xtradb_repo_baseurl }}"
     gpgkey: "{{ xtradb_repo_gpgkey }}"
     gpgcheck: "{{ xtradb_repo_gpgcheck }}"
+  when: percona_rhsm_repository is not defined
 
-
+- name: enable repository
+  rhsm_repository:
+    name: "{{ percona_rhsm_repository }}"
+    state: enabled
+  when: percona_rhsm_repository is defined
 ...
