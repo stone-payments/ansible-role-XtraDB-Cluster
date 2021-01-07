@@ -36,6 +36,11 @@
   get_url:
     url: "https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.linux-amd64.tar.gz"
     dest: "/tmp/mysqld_exporter-0.12.1.linux-amd64.tar.gz"
+    
+- name: MySQL Exporter | Ensure directory exists
+  file:
+    path: /usr/local/bin/mysqld_exporter/
+    state: directory    
 
 - name: MySQL Exporter | Extract Binary
   unarchive:
@@ -51,7 +56,7 @@
 - name: MySQL Exporter | Generate connection string
   template: 
     src: mysqld_exporter.cnf.j2
-    dest: /usr/local/bin/mysqld_exporter/
+    dest: /usr/local/bin/mysqld_exporter/mysqld_exporter.cnf
   
 - name: MySQL Exporter | Start Service
   systemd:
